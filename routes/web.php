@@ -24,6 +24,7 @@ Route::get('/dashboard', function () {
 
 Route::controller(TweetController::class)->group(function () {
     Route::get('/tweet', 'index');
+    Route::post('/tweet', 'store');
 });
 
 require __DIR__ . '/auth.php';

@@ -12,4 +12,9 @@ class TweetController extends Controller
     {
         return view('tweet/index');
     }
+
+    public function store()
+    {
+        return view('dashboard');
+    }
 }
