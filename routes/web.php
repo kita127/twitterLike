@@ -7,6 +7,8 @@ use App\Http\Controllers\FollowinglistController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\RetweetController;
 use App\Http\Controllers\RefretweetController;
+use App\Http\Controllers\NotifyController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +62,11 @@ Route::controller(RetweetController::class)->group(function () {
 Route::controller(RefretweetController::class)->group(function () {
     Route::post('/refretweet', 'store');
 });
+
+Route::controller(NotifyController::class)->group(function () {
+    Route::get('/notify', 'index');
+});
+
 
 
 
