@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use Illuminate\Http\Request;
-use App\Timeline;
 
 class TimelineController extends Controller
 {
     //
     public function index()
     {
-        return view('timeline/index');
+        $messages = Message::all();
+
+        return view('timeline/index', compact('messages'));
     }
 }
