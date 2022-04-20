@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+class Msg
+{
+    public $id;
+    public $name;
+    public $message;
+    public $favorite;
+}
 
 class TimelineController extends Controller
 {
@@ -33,17 +40,22 @@ class TimelineController extends Controller
         // リツイートの処理
         $message_and_retweet = new \Illuminate\Support\Collection();
         foreach ($messages as $message) {
-            $msg = $message;
+            $msg = new Msg();
+            $msg->id = $message->id;
+            $msg->name = $message->name;
+            $msg->message = $message->message;
+            $msg->favorite = $message->favorite;
             if ($message->type == 'retweet') {
                 // リツイートの場合はリツイートメッセージと置き換え
                 $retweeter = $message->name;
-                $msg = $join_table->where('id', '=', $message->message_id)->first();
-                $msg->message = $msg->message . '(' . $retweeter . 'がリツイート)';
-            }
-            elseif ($message->type == 'refretweet') {
+                // リツイート元のメッセージ
+                $src_msg = $join_table->where('id', '=', $message->message_id)->first();
+                $msg->messagse = $src_msg->message . '(' . $retweeter . 'がリツイート)';
+            } elseif ($message->type == 'refretweet') {
                 $retweeter = $message->name;
-                $msg = $join_table->where('id', '=', $message->message_id)->first();
-                $msg->message = $message->message . '>>>' . $msg->message . '(' . $retweeter . 'が引用リツイート)';
+                // リツイート元のメッセージ
+                $src_msg = $join_table->where('id', '=', $message->message_id)->first();
+                $msg->message = $message->message . '>>>' . $src_msg->message . '(' . $retweeter . 'が引用リツイート)';
             }
 
             $message_and_retweet->push($msg);
