@@ -14,6 +14,8 @@ class FollowinglistController extends Controller
     //
     public function index()
     {
+        // 自分がフォローしているユーザー一覧を取得する
+        
         $following = Follow::where('user_id', '=', Auth::id())->get();
         $following_ids = $following->map(function ($item) {
             return $item->following_user_id;

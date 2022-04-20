@@ -23,16 +23,25 @@ class UserlistController extends Controller
         return view('userlist/index', compact('users'));
     }
 
+    // Follow 情報追加
     public function store(Request $request)
     {
         $following_id = $request->following_id;
 
         $newFollow = new Follow();
 
-        // 自分のID
-        $newFollow->user_id = Auth::id();
-        $newFollow->following_user_id = $following_id;
-        $newFollow->save();
+        // 既に登録済みの場合は登録しない
+        $res = Follow::where([
+            ['user_id', '=', Auth::id()],
+            ['following_user_id', '=', $following_id],
+        ]);
+
+        if ($res->count() == 0) {
+            // 自分のID
+            $newFollow->user_id = Auth::id();
+            $newFollow->following_user_id = $following_id;
+            $newFollow->save();
+        }
 
         return view('dashboard');
     }
