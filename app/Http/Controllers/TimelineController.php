@@ -36,7 +36,9 @@ class TimelineController extends Controller
             $msg = $message;
             if ($message->type == 'retweet') {
                 // リツイートの場合はリツイートメッセージと置き換え
+                $retweeter = $message->name;
                 $msg = $join_table->where('id', '=', $message->message_id)->first();
+                $msg->message = $msg->message . '(' . $retweeter . 'がリツイート)';
             }
             $message_and_retweet->push($msg);
         }
