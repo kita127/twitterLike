@@ -42,6 +42,10 @@
                          <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                             Twitter Like Application.
                         </div>
+                        <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                            Log in 後 Dashboard を押してください
+                        </div>
+
                     </div>
                 </div>
 
