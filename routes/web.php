@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\TimelineController;
+use App\Http\Controllers\UserlistController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -33,5 +34,11 @@ Route::controller(TimelineController::class)->group(function () {
     Route::get('/timeline', 'index');
     Route::post('/timeline', 'store');
 });
+
+Route::controller(UserlistController::class)->group(function () {
+    Route::get('/userlist', 'index');
+    Route::post('/userlist', 'store');
+});
+
 
 require __DIR__ . '/auth.php';
