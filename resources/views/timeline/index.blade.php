@@ -32,13 +32,13 @@
                             <td>{{ $message->name }}さん</td>
                             <td>{{ $message->message }}</td>
                             <td>{{ $message->favorite }}</td>
-                            <form action="/favorite" method="post">
-                                @csrf
-                                <td>
+                            <td>
+                                <form action="/favorite" method="post">
+                                    @csrf
                                     <input type="hidden" name="message_id" value="{{ $message->id }}">
                                     <button type="submit" class="btn btn-default">いいね！</button>
-                                </td>
-                            </form>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </table>
