@@ -27,6 +27,7 @@
                             <th class="text-center">いいね数</th>
                             <th class="text-center">いいねボタン</th>
                             <th class="text-center">リツイートボタン</th>
+                            <th class="text-center">引用リツイート</th>
                         </tr>
                         @foreach($message_and_retweet as $message)
                         <tr>
@@ -47,6 +48,15 @@
                                     <button type="submit" class="btn btn-default">リツイート</button>
                                 </form>
                             </td>
+                            <td>
+                                <form action="/refretweet" method="post">
+                                    @csrf
+                                    <input type="hidden" name="message_id" value="{{ $message->id }}">
+                                    <input type="text" name="message">
+                                    <button type="submit" class="btn btn-default">引用リツイート</button>
+                                </form>
+                            </td>
+
                         </tr>
                         @endforeach
                     </table>
