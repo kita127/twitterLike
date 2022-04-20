@@ -3,6 +3,7 @@
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\UserlistController;
+use App\Http\Controllers\FollowinglistController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,11 @@ Route::controller(TimelineController::class)->group(function () {
 Route::controller(UserlistController::class)->group(function () {
     Route::get('/userlist', 'index');
     Route::post('/userlist', 'store');
+});
+
+Route::controller(FollowinglistController::class)->group(function () {
+    Route::get('/followinglist', 'index');
+    Route::post('/followinglist', 'store');
 });
 
 
