@@ -18,7 +18,7 @@ class TimelineController extends Controller
     {
 
         $join_table = DB::table('messages')->join('users', 'users.id', '=', 'messages.user_id')
-            ->select('messages.id', 'messages.message', 'messages.favorite', 'users.id as user_id', 'users.name')
+            ->select('messages.id', 'messages.message', 'messages.favorite', 'users.id as user_id', 'users.name', 'messages.message_id', 'messages.type')
             ->get();
 
         // フォロワーのidと自分のidを取得
@@ -30,6 +30,17 @@ class TimelineController extends Controller
         // タイムラインに表示するメッセージ
         $messages = $join_table->whereIn('user_id', $ids->toArray());
 
-        return view('timeline/index', compact('messages'));
+        // リツイートの処理
+        $message_and_retweet = new \Illuminate\Support\Collection();
+        foreach ($messages as $message) {
+            $msg = $message;
+            if ($message->type == 'retweet') {
+                // リツイートの場合はリツイートメッセージと置き換え
+                $msg = $join_table->where('id', '=', $message->message_id)->first();
+            }
+            $message_and_retweet->push($msg);
+        }
+
+        return view('timeline/index', compact('message_and_retweet'));
     }
 }

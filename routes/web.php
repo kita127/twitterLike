@@ -5,7 +5,7 @@ use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\UserlistController;
 use App\Http\Controllers\FollowinglistController;
 use App\Http\Controllers\FavoriteController;
-
+use App\Http\Controllers\RetweetController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +50,10 @@ Route::controller(FollowinglistController::class)->group(function () {
 
 Route::controller(FavoriteController::class)->group(function () {
     Route::post('/favorite', 'store');
+});
+
+Route::controller(RetweetController::class)->group(function () {
+    Route::post('/retweet', 'store');
 });
 
 
