@@ -24,11 +24,14 @@
                         <tr>
                             <th class="text-center">ユーザー</th>
                             <th class="text-center">メッセージ内容</th>
+                            <th class="text-center">いいね数</th>
+
                         </tr>
                         @foreach($messages as $message)
                         <tr>
                             <td>{{ $message->name }}さん</td>
                             <td>{{ $message->message }}</td>
+                            <td>{{ $message->favorite }}</td>
                         </tr>
                         @endforeach
                     </table>
