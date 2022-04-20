@@ -3,23 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
+use App\Models\Follow;
+
 
 class FollowinglistController extends Controller
 {
     //
     public function index()
     {
-        /*
-        $all_users = User::all();
-
-        // 自分以外のユーザー一覧取得
-        $users = $all_users->filter(function ($val) {
-            $user_id = Auth::id();
-            return $val->id != $user_id;
+        $following = Follow::where('user_id', '=', Auth::id())->get();
+        $following_ids = $following->map(function ($item) {
+            return $item->following_user_id;
         });
+        $all_users = User::all();
+        $following_users = array();
+        foreach ($all_users as $user) {
+            if (in_array($user->id, $following_ids->toArray())) {
+                array_push($following_users, $user);
+            }
+        }
 
-        */
-        return view('followinglist/index');
+        return view('followinglist/index', compact('following_users'));
     }
 
     public function store(Request $request)

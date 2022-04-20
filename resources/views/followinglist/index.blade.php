@@ -14,4 +14,24 @@
             </div>
         </div>
     </div>
+
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="row">
+                <div class="col-md-11 col-md-offset-1">
+                    <table class="table text-center">
+                        <tr>
+                            <th class="text-center">フォロー一覧</th>
+                        </tr>
+                        @foreach($following_users as $following_user)
+                        <tr>
+                            <td>{{ $following_user->name }}</td>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </x-app-layout>
