@@ -4,22 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
 
 class UserlistController extends Controller
 {
     //
     public function index()
     {
-        $users = User::all();
+        $all_users = User::all();
 
-        /*
-        $users = $users->filter(function ($val) {
-            // 現在ユーザーのID
+        // 自分以外のユーザー一覧取得
+        $users = $all_users->filter(function ($val) {
             $user_id = Auth::id();
-            return $val->user_id == $user_id;
+            return $val->id != $user_id;
         });
-        */
 
         return view('userlist/index', compact('users'));
     }
