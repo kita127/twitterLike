@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Follow;
 use Illuminate\Support\Facades\Auth;
 
 class UserlistController extends Controller
@@ -24,5 +25,15 @@ class UserlistController extends Controller
 
     public function store(Request $request)
     {
+        $following_id = $request->following_id;
+
+        $newFollow = new Follow();
+
+        // 自分のID
+        $newFollow->user_id = Auth::id();
+        $newFollow->following_user_id = $following_id;
+        $newFollow->save();
+
+        return view('dashboard');
     }
 }

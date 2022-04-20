@@ -25,7 +25,15 @@
                         </tr>
                         @foreach($users as $user)
                         <tr>
-                            <td>{{ $user->name }}</td>
+                            <form action="/userlist" method="post">
+                                @csrf
+
+                                <td>{{ $user->name }}</td>
+                                <input type="hidden" name="following_id" value="{{ $user->id }}">
+                                <td>
+                                    <button type="submit">フォローする</button>
+                                </td>
+                            </form>
                         </tr>
                         @endforeach
                     </table>
