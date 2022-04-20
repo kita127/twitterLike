@@ -25,13 +25,20 @@
                             <th class="text-center">ユーザー</th>
                             <th class="text-center">メッセージ内容</th>
                             <th class="text-center">いいね数</th>
-
+                            <th class="text-center">いいねボタン</th>
                         </tr>
                         @foreach($messages as $message)
                         <tr>
                             <td>{{ $message->name }}さん</td>
                             <td>{{ $message->message }}</td>
                             <td>{{ $message->favorite }}</td>
+                            <form action="/favorite" method="post">
+                                @csrf
+                                <td>
+                                    <input type="hidden" name="message_id" value="{{ $message->id }}">
+                                    <button type="submit" class="btn btn-default">いいね！</button>
+                                </td>
+                            </form>
                         </tr>
                         @endforeach
                     </table>

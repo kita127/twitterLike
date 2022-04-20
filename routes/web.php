@@ -4,6 +4,8 @@ use App\Http\Controllers\TweetController;
 use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\UserlistController;
 use App\Http\Controllers\FollowinglistController;
+use App\Http\Controllers\FavoriteController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +47,11 @@ Route::controller(FollowinglistController::class)->group(function () {
     Route::get('/followinglist', 'index');
     Route::post('/followinglist', 'store');
 });
+
+Route::controller(FavoriteController::class)->group(function () {
+    Route::post('/favorite', 'store');
+});
+
 
 
 require __DIR__ . '/auth.php';

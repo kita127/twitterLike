@@ -17,7 +17,9 @@ class TimelineController extends Controller
     public function index()
     {
 
-        $join_table = DB::table('messages')->join('users', 'messages.user_id', '=', 'users.id')->get();
+        $join_table = DB::table('messages')->join('users', 'users.id', '=', 'messages.user_id')
+            ->select('messages.id', 'messages.message', 'messages.favorite', 'users.id as user_id', 'users.name')
+            ->get();
 
         // フォロワーのidと自分のidを取得
         $ids = Follow::where('user_id', '=', Auth::id())->get()->map(function ($item) {
