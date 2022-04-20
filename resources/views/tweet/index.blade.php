@@ -16,7 +16,7 @@
                 @csrf
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <input type="text">
+                        <input type="text" name="message">
                         <button type="submit" class="btn btn-default">ツイート</button>
                     </div>
                 </div>

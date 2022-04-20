@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\TweetController;
+use App\Http\Controllers\TimelineController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +27,11 @@ Route::get('/dashboard', function () {
 Route::controller(TweetController::class)->group(function () {
     Route::get('/tweet', 'index');
     Route::post('/tweet', 'store');
+});
+
+Route::controller(TimelineController::class)->group(function () {
+    Route::get('/timeline', 'index');
+    Route::post('/timeline', 'store');
 });
 
 require __DIR__ . '/auth.php';
