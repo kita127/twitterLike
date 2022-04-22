@@ -59,7 +59,7 @@
                             </td>
                             <td>
                                 @if($message->image != '')
-                                <img src="{{ asset('storage/' . $message->image ) }}">
+                                <img src="{{ asset('storage/' . $message->image ) }}" class="w-48 ">
                                 @endif
                             </td>
                         </tr>
