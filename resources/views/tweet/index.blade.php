@@ -12,12 +12,13 @@
                     tweet
                 </div>
             </div>
-            <form action="/tweet" method="post">
+            <form action="/tweet" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
                         <input type="text" name="message">
                         <button type="submit" class="btn btn-default">ツイートする</button>
+                        <input type="file" name="imgpath">
                     </div>
                 </div>
             </form>

@@ -20,6 +20,12 @@ class TweetController extends Controller
     {
         // 現在ユーザーのID
         $user_id = Auth::id();
+        $path = '';
+
+        if ($request->imgpath != '') {
+            // 画像を保存
+            $path = $request->imgpath->store('', 'public');
+        }
 
         $newMessage = new Message();
         $newMessage->user_id = $user_id;
@@ -28,7 +34,7 @@ class TweetController extends Controller
         $newMessage->type = 'tweet';
         $newMessage->message_id = -1;
         $newMessage->norify_id = -1;
-        $newMessage->image = '';
+        $newMessage->image = $path;
         $newMessage->save();
 
 
