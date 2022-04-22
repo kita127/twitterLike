@@ -25,7 +25,7 @@ class TimelineController extends Controller
     {
 
         $join_table = DB::table('messages')->join('users', 'users.id', '=', 'messages.user_id')
-            ->select('messages.id', 'messages.message', 'messages.favorite', 'users.id as user_id', 'users.name', 'messages.message_id', 'messages.type')
+            ->select('messages.id', 'messages.message', 'messages.favorite', 'users.id as user_id', 'users.name', 'messages.message_id', 'messages.type', 'messages.image')
             ->get();
 
         // フォロワーのidと自分のidを取得
@@ -45,6 +45,7 @@ class TimelineController extends Controller
             $msg->name = $message->name;
             $msg->message = $message->message;
             $msg->favorite = $message->favorite;
+            $msg->image = $message->image;
             if ($message->type == 'retweet') {
                 // リツイートの場合はリツイートメッセージと置き換え
                 $retweeter = $message->name;
@@ -54,6 +55,7 @@ class TimelineController extends Controller
                 $msg->name = $src_msg->name;
                 $msg->message = $src_msg->message . '(' . $retweeter . 'がリツイート)';
                 $msg->favorite = $src_msg->favorite;
+                $msg->image = $src_msg->image;
             } elseif ($message->type == 'refretweet') {
                 $retweeter = $message->name;
                 // リツイート元のメッセージ
@@ -62,6 +64,7 @@ class TimelineController extends Controller
                 $msg->name = $src_msg->name;
                 $msg->message = $message->message . '>>>' . $src_msg->message . '(' . $retweeter . 'が引用リツイート)';
                 $msg->favorite = $src_msg->favorite;
+                $msg->image = $src_msg->image;
             }
 
             $message_and_retweet->push($msg);

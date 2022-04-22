@@ -28,6 +28,7 @@
                             <th class="text-center">いいねボタン</th>
                             <th class="text-center">リツイートボタン</th>
                             <th class="text-center">引用リツイート</th>
+                            <th class="text-center">画像</th>
                         </tr>
                         @foreach($message_and_retweet as $message)
                         <tr>
@@ -56,7 +57,11 @@
                                     <button type="submit" class="btn btn-default">引用リツイート</button>
                                 </form>
                             </td>
-
+                            <td>
+                                @if($message->image != '')
+                                <img src="{{ asset('storage/' . $message->image ) }}">
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </table>
