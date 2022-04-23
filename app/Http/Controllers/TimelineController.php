@@ -10,13 +10,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Msg
+class DispMsg
 {
     public $id;
     public $name;
     public $message;
     public $favorite;
     public $image;
+    public $msg_type;
+    public $retweeter;
     public $can_retweet;
 }
 
@@ -43,12 +45,14 @@ class TimelineController extends Controller
         // リツイートの場合はリツイート元のメッセージ情報を表示する
         $message_and_retweet = new \Illuminate\Support\Collection();
         foreach ($messages as $message) {
-            $disp_msg = new Msg();
+            $disp_msg = new DispMsg();
             $disp_msg->id = $message->id;
             $disp_msg->name = $message->name;
             $disp_msg->message = $message->message;
             $disp_msg->favorite = $message->favorite;
             $disp_msg->image = $message->image;
+            $disp_msg->msg_type = 'tweet';
+            $disp_msg->retweeter = '';
             $disp_msg->can_retweet = true;
             if ($message->type == 'retweet' || $message->type == 'refretweet') {
                 // リツイートの場合はリツイートメッセージと置き換え
@@ -59,13 +63,16 @@ class TimelineController extends Controller
                 $disp_msg->name = $src_msg->name;
                 $disp_msg->favorite = $src_msg->favorite;
                 $disp_msg->image = $src_msg->image;
+                $disp_msg->retweeter = $message->name;
                 // 自分のリツイートの場合は再度リツイートできない
                 $disp_msg->can_retweet = !($message->user_id == Auth::id());
 
                 if ($message->type == 'retweet') {
                     $disp_msg->message = $src_msg->message . '(' . $retweeter . 'がリツイート)';
+                    $disp_msg->msg_type = 'retweet';
                 } elseif ($message->type == 'refretweet') {
                     $disp_msg->message = $message->message . '>>>' . $src_msg->message . '(' . $retweeter . 'が引用リツイート)';
+                    $disp_msg->msg_type = 'refretweet';
                 }
             }
             $message_and_retweet->push($disp_msg);

@@ -62,6 +62,11 @@
                             </form>
                         </div>
                         @endif
+                        @if($message->msg_type == 'retweet' || $message->msg_type == 'refretweet')
+                        <div class="retweet-text">
+                            {{ $message->retweeter }} さんがリツイート
+                        </div>
+                        @endif
                     </li>
                     <li>
                         <div class="block-left">

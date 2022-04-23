@@ -1682,3 +1682,8 @@ a.btn--orange:hover {
 .col2 li {
   width: calc(100% / 3);
 }
+
+.retweet-text {
+  color: rgb(127, 125, 125);
+  font-size: 0.8em;
+}
