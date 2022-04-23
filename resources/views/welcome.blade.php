@@ -43,9 +43,11 @@
                             Twitter Like Application.
                         </div>
                         <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                            Log in 後 Home を押してください
+                            Register を押してアカウントを作成してください
                         </div>
-
+                        <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                            Log in 後は Home を押してください
+                        </div>
                     </div>
                 </div>
 
