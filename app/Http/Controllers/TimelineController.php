@@ -34,10 +34,11 @@ class TimelineController extends Controller
         });
         $ids->push(Auth::id());
 
-        // タイムラインに表示するメッセージ
+        // タイムラインに表示するメッセージは自分のメッセージとフォロワーのメッセージのみ
         $messages = $join_table->whereIn('user_id', $ids->toArray());
 
         // リツイートの処理
+        // リツイートの場合はリツイート元のメッセージ情報を表示する
         $message_and_retweet = new \Illuminate\Support\Collection();
         foreach ($messages as $message) {
             $msg = new Msg();
