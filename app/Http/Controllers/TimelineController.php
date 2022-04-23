@@ -68,10 +68,10 @@ class TimelineController extends Controller
                 $disp_msg->can_retweet = !($message->user_id == Auth::id());
 
                 if ($message->type == 'retweet') {
-                    $disp_msg->message = $src_msg->message . '(' . $retweeter . 'がリツイート)';
+                    $disp_msg->message = $src_msg->message;
                     $disp_msg->msg_type = 'retweet';
                 } elseif ($message->type == 'refretweet') {
-                    $disp_msg->message = $message->message . '>>>' . $src_msg->message . '(' . $retweeter . 'が引用リツイート)';
+                    $disp_msg->message = $message->message . '>>>' . $src_msg->message;
                     $disp_msg->msg_type = 'refretweet';
                 }
             }
