@@ -22,10 +22,12 @@
                 <div class="col-md-11 col-md-offset-1">
                     <table class="table text-center">
                         <tr>
+                            <th class="text-center">名前</th>
                             <th class="text-center">メッセージ内容</th>
                         </tr>
                         @foreach($replys as $reply)
                         <tr>
+                            <td>{{ $reply->from_name }}</td>
                             <td>{{ $reply->message }}</td>
                         </tr>
                         @endforeach
