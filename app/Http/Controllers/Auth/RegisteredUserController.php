@@ -39,16 +39,29 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        // すでに登録済みのユーザー名は登録できない
+        $register_ok = true;
+        $users = User::where('name', '=', $request->name)->get();
+        if ($users->count() > 0) {
+            $register_ok = false;
+        }
 
-        event(new Registered($user));
+        if ($register_ok) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
 
-        Auth::login($user);
+            event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
+            Auth::login($user);
+
+            return redirect(RouteServiceProvider::HOME);
+        } else {
+            // 既に登録済み
+            $err_msg = 'ユーザー名もしくはメールアドレスが既に使用されています';
+            return view('error/index', compact('err_msg'));
+        }
     }
 }
