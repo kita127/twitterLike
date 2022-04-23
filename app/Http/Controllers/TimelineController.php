@@ -30,6 +30,7 @@ class TimelineController extends Controller
 
         $join_table = DB::table('messages')->join('users', 'users.id', '=', 'messages.user_id')
             ->select('messages.id', 'messages.message', 'messages.favorite', 'users.id as user_id', 'users.name', 'messages.message_id', 'messages.type', 'messages.image')
+            ->orderBy('id', 'desc')
             ->get();
 
         // フォロワーのidと自分のidを取得
