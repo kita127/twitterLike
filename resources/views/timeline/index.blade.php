@@ -26,7 +26,7 @@
                         <div>
                             {{ $message->name }}さん
                         </div>
-                        <div>
+                        <div class="message-text">
                             {{ $message->message }}
                         </div>
                         <div>

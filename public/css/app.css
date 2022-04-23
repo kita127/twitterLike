@@ -1683,6 +1683,10 @@ a.btn--orange:hover {
   width: calc(100% / 3);
 }
 
+.message-text {
+  font-style: italic;
+}
+
 .retweet-text {
   color: rgb(127, 125, 125);
   font-size: 0.8em;
