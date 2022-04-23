@@ -16,6 +16,7 @@ class Msg
     public $name;
     public $message;
     public $favorite;
+    public $can_retweet;
 }
 
 class TimelineController extends Controller
@@ -47,6 +48,7 @@ class TimelineController extends Controller
             $msg->message = $message->message;
             $msg->favorite = $message->favorite;
             $msg->image = $message->image;
+            $msg->can_retweet = true;
             if ($message->type == 'retweet') {
                 // リツイートの場合はリツイートメッセージと置き換え
                 $retweeter = $message->name;
@@ -57,6 +59,7 @@ class TimelineController extends Controller
                 $msg->message = $src_msg->message . '(' . $retweeter . 'がリツイート)';
                 $msg->favorite = $src_msg->favorite;
                 $msg->image = $src_msg->image;
+                $msg->can_retweet = false;
             } elseif ($message->type == 'refretweet') {
                 $retweeter = $message->name;
                 // リツイート元のメッセージ
@@ -66,6 +69,7 @@ class TimelineController extends Controller
                 $msg->message = $message->message . '>>>' . $src_msg->message . '(' . $retweeter . 'が引用リツイート)';
                 $msg->favorite = $src_msg->favorite;
                 $msg->image = $src_msg->image;
+                $msg->can_retweet = false;
             }
 
             $message_and_retweet->push($msg);

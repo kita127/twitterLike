@@ -37,6 +37,8 @@
                                 <inline>{{ $message->favorite }}</inline>
                             </form>
                         </div>
+                        <!-- リツイートしたツイートはリツイート不可 -->
+                        @if($message->can_retweet)
                         <div>
                             <form action="/retweet" method="post">
                                 @csrf
@@ -46,6 +48,9 @@
                                 </div>
                             </form>
                         </div>
+                        @endif
+                        <!-- リツイートしたツイートはリツイート不可 -->
+                        @if($message->can_retweet)
                         <div>
                             <form action="/refretweet" method="post">
                                 @csrf
@@ -56,6 +61,7 @@
                                 <input type="text" name="message" value="引用メッセージ">
                             </form>
                         </div>
+                        @endif
                     </li>
                     <li>
                         <div class="block-left">
