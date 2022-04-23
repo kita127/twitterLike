@@ -42,37 +42,39 @@ class TimelineController extends Controller
         // リツイートの場合はリツイート元のメッセージ情報を表示する
         $message_and_retweet = new \Illuminate\Support\Collection();
         foreach ($messages as $message) {
-            $msg = new Msg();
-            $msg->id = $message->id;
-            $msg->name = $message->name;
-            $msg->message = $message->message;
-            $msg->favorite = $message->favorite;
-            $msg->image = $message->image;
-            $msg->can_retweet = true;
+            $disp_msg = new Msg();
+            $disp_msg->id = $message->id;
+            $disp_msg->name = $message->name;
+            $disp_msg->message = $message->message;
+            $disp_msg->favorite = $message->favorite;
+            $disp_msg->image = $message->image;
+            $disp_msg->can_retweet = true;
             if ($message->type == 'retweet') {
                 // リツイートの場合はリツイートメッセージと置き換え
                 $retweeter = $message->name;
                 // リツイート元のメッセージ
                 $src_msg = $join_table->where('id', '=', $message->message_id)->first();
-                $msg->id = $src_msg->id;
-                $msg->name = $src_msg->name;
-                $msg->message = $src_msg->message . '(' . $retweeter . 'がリツイート)';
-                $msg->favorite = $src_msg->favorite;
-                $msg->image = $src_msg->image;
-                $msg->can_retweet = false;
+                $disp_msg->id = $src_msg->id;
+                $disp_msg->name = $src_msg->name;
+                $disp_msg->message = $src_msg->message . '(' . $retweeter . 'がリツイート)';
+                $disp_msg->favorite = $src_msg->favorite;
+                $disp_msg->image = $src_msg->image;
+                // 自分のリツイートの場合は再度リツイートできない
+                $disp_msg->can_retweet = !($message->user_id == Auth::id());
             } elseif ($message->type == 'refretweet') {
                 $retweeter = $message->name;
                 // リツイート元のメッセージ
                 $src_msg = $join_table->where('id', '=', $message->message_id)->first();
-                $msg->id = $src_msg->id;
-                $msg->name = $src_msg->name;
-                $msg->message = $message->message . '>>>' . $src_msg->message . '(' . $retweeter . 'が引用リツイート)';
-                $msg->favorite = $src_msg->favorite;
-                $msg->image = $src_msg->image;
-                $msg->can_retweet = false;
+                $disp_msg->id = $src_msg->id;
+                $disp_msg->name = $src_msg->name;
+                $disp_msg->message = $message->message . '>>>' . $src_msg->message . '(' . $retweeter . 'が引用リツイート)';
+                $disp_msg->favorite = $src_msg->favorite;
+                $disp_msg->image = $src_msg->image;
+                // 自分のリツイートの場合は再度リツイートできない
+                $disp_msg->can_retweet = !($message->user_id == Auth::id());
             }
 
-            $message_and_retweet->push($msg);
+            $message_and_retweet->push($disp_msg);
         }
 
         return view('timeline/index', compact('message_and_retweet'));
