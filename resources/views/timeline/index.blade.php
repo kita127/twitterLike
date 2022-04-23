@@ -18,6 +18,36 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
+
+            @foreach($message_and_retweet as $message)
+            <div class="border">
+                <div>
+                    {{ $message->name }}さん
+                </div>
+                <div>
+                    {{ $message->message }}
+                </div>
+                <div>
+                    <form action="/favorite" method="post">
+                        @csrf
+                        <input type="hidden" name="message_id" value="{{ $message->id }}">
+                        <button type="submit" class="btn btn--orange">★</button>
+                        <inline>{{ $message->favorite }}</inline>
+                    </form>
+                </div>
+                <div>
+                    <form action="/retweet" method="post">
+                        @csrf
+                        <input type="hidden" name="message_id" value="{{ $message->id }}">
+                        <div class="bg-white">
+                            <button type="submit" class="btn btn--orange">リツイート</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @endforeach
+
+            <!--
             <div class="row">
                 <div class="col-md-11 col-md-offset-1">
                     <table class="table text-center">
@@ -67,6 +97,7 @@
                     </table>
                 </div>
             </div>
+            -->
         </div>
     </div>
 </x-app-layout>

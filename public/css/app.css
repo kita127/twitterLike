@@ -1377,3 +1377,13 @@ select {
   }
 }
 
+/* オリジナルデザイン */
+.btn--orange,
+a.btn--orange {
+  color: rgb(2, 2, 2);
+}
+.btn--orange:hover,
+a.btn--orange:hover {
+  color: #fff;
+  background: #f56500;
+}
