@@ -16,6 +16,7 @@ class Msg
     public $name;
     public $message;
     public $favorite;
+    public $image;
     public $can_retweet;
 }
 
@@ -49,31 +50,24 @@ class TimelineController extends Controller
             $disp_msg->favorite = $message->favorite;
             $disp_msg->image = $message->image;
             $disp_msg->can_retweet = true;
-            if ($message->type == 'retweet') {
+            if ($message->type == 'retweet' || $message->type == 'refretweet') {
                 // リツイートの場合はリツイートメッセージと置き換え
                 $retweeter = $message->name;
                 // リツイート元のメッセージ
                 $src_msg = $join_table->where('id', '=', $message->message_id)->first();
                 $disp_msg->id = $src_msg->id;
                 $disp_msg->name = $src_msg->name;
-                $disp_msg->message = $src_msg->message . '(' . $retweeter . 'がリツイート)';
                 $disp_msg->favorite = $src_msg->favorite;
                 $disp_msg->image = $src_msg->image;
                 // 自分のリツイートの場合は再度リツイートできない
                 $disp_msg->can_retweet = !($message->user_id == Auth::id());
-            } elseif ($message->type == 'refretweet') {
-                $retweeter = $message->name;
-                // リツイート元のメッセージ
-                $src_msg = $join_table->where('id', '=', $message->message_id)->first();
-                $disp_msg->id = $src_msg->id;
-                $disp_msg->name = $src_msg->name;
-                $disp_msg->message = $message->message . '>>>' . $src_msg->message . '(' . $retweeter . 'が引用リツイート)';
-                $disp_msg->favorite = $src_msg->favorite;
-                $disp_msg->image = $src_msg->image;
-                // 自分のリツイートの場合は再度リツイートできない
-                $disp_msg->can_retweet = !($message->user_id == Auth::id());
-            }
 
+                if ($message->type == 'retweet') {
+                    $disp_msg->message = $src_msg->message . '(' . $retweeter . 'がリツイート)';
+                } elseif ($message->type == 'refretweet') {
+                    $disp_msg->message = $message->message . '>>>' . $src_msg->message . '(' . $retweeter . 'が引用リツイート)';
+                }
+            }
             $message_and_retweet->push($disp_msg);
         }
 
