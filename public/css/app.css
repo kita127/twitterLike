@@ -1387,3 +1387,11 @@ a.btn--orange:hover {
   color: #fff;
   background: #f56500;
 }
+
+.col2{
+  display: flex;
+}
+
+.col2 li {
+  width: calc(100% / 3);
+}

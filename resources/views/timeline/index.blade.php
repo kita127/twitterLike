@@ -21,32 +21,54 @@
 
             @foreach($message_and_retweet as $message)
             <div class="border">
-                <div>
-                    {{ $message->name }}さん
-                </div>
-                <div>
-                    {{ $message->message }}
-                </div>
-                <div>
-                    <form action="/favorite" method="post">
-                        @csrf
-                        <input type="hidden" name="message_id" value="{{ $message->id }}">
-                        <button type="submit" class="btn btn--orange">★</button>
-                        <inline>{{ $message->favorite }}</inline>
-                    </form>
-                </div>
-                <div>
-                    <form action="/retweet" method="post">
-                        @csrf
-                        <input type="hidden" name="message_id" value="{{ $message->id }}">
-                        <div class="bg-white">
-                            <button type="submit" class="btn btn--orange">リツイート</button>
+                <ul class="col2">
+                    <li>
+                        <div>
+                            {{ $message->name }}さん
                         </div>
-                    </form>
-                </div>
+                        <div>
+                            {{ $message->message }}
+                        </div>
+                        <div>
+                            <form action="/favorite" method="post">
+                                @csrf
+                                <input type="hidden" name="message_id" value="{{ $message->id }}">
+                                <button type="submit" class="btn btn--orange">★</button>
+                                <inline>{{ $message->favorite }}</inline>
+                            </form>
+                        </div>
+                        <div>
+                            <form action="/retweet" method="post">
+                                @csrf
+                                <input type="hidden" name="message_id" value="{{ $message->id }}">
+                                <div class="bg-white">
+                                    <button type="submit" class="btn btn--orange">リツイート</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div>
+                            <form action="/refretweet" method="post">
+                                @csrf
+                                <input type="hidden" name="message_id" value="{{ $message->id }}">
+                                <div class="bs-white">
+                                    <button type="submit" class="btn btn--orange">引用リツイート</button>
+                                </div>
+                                <input type="text" name="message" value="引用メッセージ">
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="block-left">
+                            <div>
+                                @if($message->image != '')
+                                <img src="{{ asset('storage/' . $message->image ) }}" class="w-48 ">
+                                @endif
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
             @endforeach
-
             <!--
             <div class="row">
                 <div class="col-md-11 col-md-offset-1">
