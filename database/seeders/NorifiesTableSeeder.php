@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
-class FollowTableSeeder extends Seeder
+class NorifiesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,8 +16,7 @@ class FollowTableSeeder extends Seeder
      */
     public function run()
     {
-        //
         // テーブルのクリア
-        DB::table('follows')->truncate();
+        DB::table('norifies')->truncate();
     }
 }
