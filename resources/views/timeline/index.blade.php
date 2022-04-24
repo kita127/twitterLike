@@ -29,6 +29,18 @@
                         <div class="message-text">
                             {{ $message->message }}
                         </div>
+                        @if($message->msg_type == 'refretweet')
+                        <div>
+                            <blockquote>
+                                <div>
+                                    {{ $message->ref_name }}さん
+                                </div>
+                                <div>
+                                    {{ $message->ref_message }}
+                                </div>
+                            </blockquote>
+                        </div>
+                        @endif
                         <div>
                             <form action="/favorite" method="post">
                                 @csrf
@@ -62,7 +74,7 @@
                             </form>
                         </div>
                         @endif
-                        @if($message->msg_type == 'retweet' || $message->msg_type == 'refretweet')
+                        @if($message->msg_type == 'retweet')
                         <div class="retweet-text">
                             {{ $message->retweeter }} さんがリツイート
                         </div>
