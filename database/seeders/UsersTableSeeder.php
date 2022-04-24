@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
         // テーブルのクリア
         DB::table('users')->truncate();
 
+        /*
         $users = [
             [
                 'name' => 'sato',
@@ -35,5 +36,6 @@ class UsersTableSeeder extends Seeder
         foreach ($users as $user) {
             \App\Models\User::create($user);
         }
+        */
     }
 }
