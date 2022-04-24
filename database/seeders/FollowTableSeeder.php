@@ -19,10 +19,5 @@ class FollowTableSeeder extends Seeder
         //
         // テーブルのクリア
         DB::table('follows')->truncate();
-
-        DB::table('follows')->insert([
-            'user_id' => -1,
-            'following_user_id' => -1,
-        ]);
     }
 }

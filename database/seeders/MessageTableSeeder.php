@@ -21,14 +21,16 @@ class MessageTableSeeder extends Seeder
         // テーブルのクリア
         DB::table('messages')->truncate();
 
+        /*
         DB::table('messages')->insert([
-            'user_id' => 0,
-            'message' => 'シードメッセージ1',
+            'user_id' => 1,
+            'message' => 'おはようございます。私は佐藤です。',
             'favorite' => 0,
             'type' => 'tweet',
             'message_id' => -1,
             'norify_id' => -1,
             'image' => '',
         ]);
+        */
     }
 }
